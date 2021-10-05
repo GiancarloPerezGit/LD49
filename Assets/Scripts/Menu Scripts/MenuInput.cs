@@ -24,7 +24,7 @@ public class MenuInput : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             //tabGroup[0].selectedTab = MenuTwo;
             pause.Pause(MenuType.SETTINGS);

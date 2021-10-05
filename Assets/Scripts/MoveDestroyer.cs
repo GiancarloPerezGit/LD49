@@ -23,7 +23,9 @@ public class MoveDestroyer : MonoBehaviour
     {
         if(other.tag == "Moveable")
         {
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
+            other.gameObject.GetComponent<ParticleSystem>().Stop();
+
             triggered = true;
         }
     }

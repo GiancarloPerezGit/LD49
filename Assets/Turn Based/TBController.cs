@@ -17,6 +17,8 @@ public class TBController : MonoBehaviour
     public GameObject win;
     public GameObject lose;
     private bool playerEnd = false;
+    private bool enemyWait = false;
+    private bool enemyEnd = false;
     private bool stopTurns = false;
     private bool turnStart = true;
 
@@ -24,6 +26,8 @@ public class TBController : MonoBehaviour
     private int unstableCounter = 0;
 
     public bool animationWait = false;
+
+    public ParticleSystem stunEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +38,7 @@ public class TBController : MonoBehaviour
         ea.enemyStabilityEvent.AddListener(PlayerStabilityDamage);
         ps.playerDeath.AddListener(Loss);
         es.enemyDeath.AddListener(Victory);
+        ea.enemyDone.AddListener(EnemyActionDone);
     }
 
     public void SwapTurns()
@@ -43,8 +48,17 @@ public class TBController : MonoBehaviour
 
     public void Instability()
     {
-        unstable = true;
-        unstableCounter = 3;
+        if(unstable)
+        {
+
+        }
+        else
+        {
+            stunEffect.gameObject.SetActive(true);
+            unstable = true;
+            unstableCounter = 3;
+        }
+        
     }
 
     public void EnemyDamage(int dam, int target)
@@ -73,6 +87,11 @@ public class TBController : MonoBehaviour
         actSelect.enabled = false;
         endScreen.SetActive(true);
         lose.SetActive(true);
+    }
+
+    public void EnemyActionDone()
+    {
+        enemyEnd = true;
     }
     void Update()
     {
@@ -106,6 +125,7 @@ public class TBController : MonoBehaviour
             }
             else
             {
+                stunEffect.gameObject.SetActive(false);
                 unstable = false;
                 ps.stabilityReset();
                 UIController.locked = false;
@@ -149,13 +169,22 @@ public class TBController : MonoBehaviour
 
             }
         }
+        else if(enemyWait)
+        {
+            if(enemyEnd)
+            {
+                print("Enemy ended");
+                turn += 1;
+                playerEnd = false;
+                enemyWait = false;
+                enemyEnd = false;
+            }
+        }
         else
         {
-            
             ea.actionList();
-            print("Enemy ended");
-            turn += 1;
-            playerEnd = false;
+            enemyWait = true;
+            
         }
 
     }

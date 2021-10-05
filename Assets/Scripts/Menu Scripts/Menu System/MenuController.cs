@@ -9,7 +9,7 @@ public class MenuController : MonoBehaviour
     public List<CanvasObject> canvasObjects;
     Dictionary<MenuType, CanvasObject> canvasObjectDictionary;
 
-    CanvasObject lastActiveCanvas;
+    public CanvasObject lastActiveCanvas;
 
     void Awake()
     {

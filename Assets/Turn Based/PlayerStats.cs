@@ -11,6 +11,8 @@ public class PlayerStats : MonoBehaviour
 
     public UnityEvent unstable;
     public UnityEvent playerDeath;
+    public UnityEvent defendEnd;
+
     public bool defending = false;
     public void damageTaken(int damageInc)
     {
@@ -18,6 +20,7 @@ public class PlayerStats : MonoBehaviour
         {
             damageInc /= 2;
             defending = false;
+            defendEnd.Invoke();
         }
         if (health - damageInc <= 0)
         {
@@ -38,6 +41,7 @@ public class PlayerStats : MonoBehaviour
         }
         else if(stability + stabilityInc <= 0)
         {
+
             stability = 0;
             unstable.Invoke();
         }

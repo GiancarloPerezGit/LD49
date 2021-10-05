@@ -8,23 +8,41 @@ public class MoveTowards : MonoBehaviour
     public float speed;
     public float slowModifier = 1;
     public PauseMenu pause;
-
+    public Vector3 startLoc;
+    private bool firstTime = true;
     // Start is called before the first frame update
     void Start()
     {
         pause = GameObject.Find("Menu Controller").GetComponent<PauseMenu>();
+        startLoc = this.gameObject.transform.localPosition;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        if(pause.menuActive == false)
+        if(firstTime)
+        {
+            firstTime = false;
+        }
+        else
+        {
+            this.gameObject.transform.localPosition = startLoc;
+        }
+       
+    }
+    private void FixedUpdate()
+    {
+        if (pause.menuActive == false)
         {
             Vector3 a = transform.position;
             Vector3 b = target.position;
 
-            transform.position = Vector3.MoveTowards(a, b, speed / slowModifier);
+            transform.position = Vector3.MoveTowards(a, b, (speed / slowModifier)*Time.fixedDeltaTime);
         }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+       
         
     }
 }

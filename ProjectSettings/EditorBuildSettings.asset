@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TurnBasedIntegration.unity
-    guid: 9bbba258ed22bf644a92a264b2288c38
+    path: Assets/Scenes/Main Scene.unity
+    guid: 2d506adddeff0a64899acc8cb0cc4b5f
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
